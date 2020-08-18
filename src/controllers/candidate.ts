@@ -38,7 +38,7 @@ export const searchCandidate = (req: Request, res: Response): void => {
       errorCode = 404
       throw new Error('no candidates were matched')
     }
-    console.log(cache.getAllData())
+
     res.writeHead(200, { 'Content-Type': 'application/json' })
     res.write(JSON.stringify(best))
     res.end()

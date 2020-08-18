@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('tiny'))
 
 // in memory store of our candidates
-import Database from './lib/database'
+import Database from './lib/Database'
 const db = Database.getInstance()
 // seed db if env var set to true
 if (process.env.SEED_DB) {

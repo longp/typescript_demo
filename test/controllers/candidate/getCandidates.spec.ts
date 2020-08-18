@@ -1,6 +1,6 @@
 import app from '../../../src/app'
 import request from 'supertest'
-import Database from '../../../src/lib/database'
+import Database from '../../../src/lib/Database'
 
 describe('GET /candidate', () => {
   it('get best candidate depending on search query', async () => {

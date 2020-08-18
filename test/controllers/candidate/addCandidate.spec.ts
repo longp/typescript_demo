@@ -11,13 +11,10 @@ describe('POST /candidate', () => {
     const result = await request(app)
       .post('/candidate')
       .set('Content-type', 'application/json')
-      .expect('Content-Type', /json/)
+      .expect('Content-Type', 'application/json')
       .send({ ...candidate })
       .expect(201)
-
-    const data = JSON.parse(result.text)
-    expect(data.msg).toEqual('Successfully created!')
-    expect(data.data).toMatchObject(candidate)
+    expect(JSON.parse(result.text)).toMatchObject(candidate)
   })
 
   it('should fail because no candidate object passed', async () => {

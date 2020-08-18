@@ -1,6 +1,6 @@
-import ICandidate from './interfaces/ICandidate'
-import staticData from './data/seedDatabase.json'
-import { generateRandomCandidate } from './lib/Candidate'
+import ICandidate from '../interfaces/ICandidate'
+import staticData from '../data/seedDatabase.json'
+import { generateRandomCandidate } from '../lib/Candidate'
 
 // Singleton
 class Database {

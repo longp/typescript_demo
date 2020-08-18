@@ -1,5 +1,5 @@
 import { generateRandomCandidate } from '../lib/Candidate'
-import Database from '../database'
+import Database from '../lib/database'
 
 function main() {
   console.log('running seedDatabase')

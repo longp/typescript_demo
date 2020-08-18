@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { pickBestCandidateFromList } from '../lib/Candidate'
+import Cache from '../lib/Cache'
 import ICandidate from '../interfaces/ICandidate'
 /**
  * Get Candidate.
@@ -7,6 +8,8 @@ import ICandidate from '../interfaces/ICandidate'
  */
 export const searchCandidate = (req: Request, res: Response): void => {
   let errorCode = 400
+  const cache = Cache.getInstance()
+
   try {
     if (!res.locals.database || res.locals.database.length === 0) {
       errorCode = 404
@@ -19,13 +22,23 @@ export const searchCandidate = (req: Request, res: Response): void => {
     const skills: string = req.query.skills as string
     const skillsList: string[] = skills.split(',')
 
-    const best = pickBestCandidateFromList(skillsList, res.locals.database)
+    let best
+    // Check cache if we already searched :O
+    if (cache.getData(req.url)) {
+      best = cache.getData(req.url)
+    } else {
+      best = pickBestCandidateFromList(skillsList, res.locals.database)
+
+      if (best) {
+        cache.setData(req.url, best)
+      }
+    }
 
     if (!best) {
       errorCode = 404
       throw new Error('no candidates were matched')
     }
-
+    console.log(cache.getAllData())
     res.writeHead(200, { 'Content-Type': 'application/json' })
     res.write(JSON.stringify(best))
     res.end()

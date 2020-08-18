@@ -7,7 +7,7 @@ class Database {
   _data: ICandidate[] = []
   private static instance: Database
 
-  seedRandomDatabase(seedCount = 2): void {
+  seedRandomDatabase(seedCount = 20): void {
     for (let i = 0; i < seedCount; i++) {
       // create a random candidate
       const RandomCandidate = generateRandomCandidate()
